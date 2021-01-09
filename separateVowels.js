@@ -1,4 +1,9 @@
-const s = 'javascriptloops'
+/*essa função recebe uma string e retorna outra
+que possui as vogais antes, as consoantes depois
+ e ambos ordenados.
+*/
+
+const s = 'learnjavascriptloopsinhackerrankweekofcode'
 function vowelsAndConsonants(s) {
     var letters = s.split('')//separa as letras num array
     var vowels=[];
@@ -18,8 +23,8 @@ function vowelsAndConsonants(s) {
         
     }
     
-    var finalVowels = vowels.sort()
-    var finalConsonants = consonants.sort()
+    var finalVowels = vowels
+    var finalConsonants = consonants
     var end = finalVowels.concat(finalConsonants)
 
     
