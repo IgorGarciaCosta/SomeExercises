@@ -35,9 +35,40 @@ var chechIfIsValidPosition = (iValue, jValue, matrix, player) => {
       : jogadaY(player)
   }
   else if (matrix[iValue][jValue] == '.') {
-    putValuesOnBoard(iValue, jValue, player)
+
+    player == 1
+      ? checkIfXPositionisValid(iValue, jValue, matrix, player)
+      : checkIfYPositionisValid(iValue, jValue, matrix, player);
+
   }
 
+}
+
+var checkIfYPositionisValid = (iValue, jValue, matrix, player) => {
+  if ((iValue == 0)||(iValue==jValue)) {//is in the first column
+    putValuesOnBoard(iValue, jValue, player)
+  }
+  //os dois ultimos parenteses dão erro
+  else if ((matrix[iValue - 1][jValue] == '0') || (matrix[iValue - 1][jValue - 1] == '0') || (matrix[iValue][jValue - 1] == '0') || (matrix[iValue + 1][jValue - 1] == '0') || (matrix[iValue + 1][jValue] == '0')) {
+    putValuesOnBoard(iValue, jValue, player)
+  }
+  else {
+    console.log('\nPosição inválida, jogue novamente: ')
+    jogadaY(player)
+  }
+}
+
+var checkIfXPositionisValid = (iValue, jValue, matrix, player) => {
+  if (iValue == 0) {//is in the first line
+    putValuesOnBoard(iValue, jValue, player)
+  }
+  else if ((matrix[iValue - 1][jValue - 1] == 'x') || (matrix[iValue][jValue - 1] == 'x') || (matrix[iValue - 1][jValue] == 'x') || (matrix[iValue - 1][jValue + 1] == 'x') || (matrix[iValue][jValue + 1] == 'x')) {
+    putValuesOnBoard(iValue, jValue, player)
+  }
+  else {
+    console.log('\nPosição inválida, jogue novamente: ')
+    jogadaX(player)
+  }
 }
 
 var chechIfXwon = (iValue, jValue) => {
