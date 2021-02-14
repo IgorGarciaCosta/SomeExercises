@@ -4,6 +4,8 @@
 //
 const prompt = require('prompt-sync')();
 
+var gameSatus = true;
+
 var jogadaX = (player) => {
   var xi = prompt("\nX player i position (line): ")
   var xj = prompt("X player j position (column): ")
@@ -27,6 +29,13 @@ var start = () => {
 
 var chechIfIsValidPosition = (iValue, jValue, matrix, player) => {
 
+  if ((iValue < 0 || iValue > 4) || (jValue < 0 || jValue > 8)) {
+    console.log('\nPosição inválida, jogue novamente: ')
+    player == 1
+      ? jogadaX(player)
+      : jogadaY(player)
+  }
+
   console.log("Posição: " + matrix[iValue][jValue])
   if (matrix[iValue][jValue] == '-' || matrix[iValue][jValue] == 'x' || matrix[iValue][jValue] == '0') {
     console.log('\nPosição inválida, jogue novamente: ')
@@ -44,8 +53,16 @@ var chechIfIsValidPosition = (iValue, jValue, matrix, player) => {
 
 }
 
+
+
 var checkIfYPositionisValid = (iValue, jValue, matrix, player) => {
-  if ((iValue == 0)||(iValue==jValue)) {//is in the first column
+  iValue = parseInt(iValue)
+  console.log(iValue + 1)
+  console.log(jValue - 1)
+
+
+
+  if ((iValue == 0) || (iValue == jValue)) {//is in the first column
     putValuesOnBoard(iValue, jValue, player)
   }
   //os dois ultimos parenteses dão erro
@@ -59,9 +76,15 @@ var checkIfYPositionisValid = (iValue, jValue, matrix, player) => {
 }
 
 var checkIfXPositionisValid = (iValue, jValue, matrix, player) => {
+  //iValue = parseInt(iValue)
+  console.log(iValue + 1)
+  console.log(jValue - 1)
+
+
   if (iValue == 0) {//is in the first line
     putValuesOnBoard(iValue, jValue, player)
   }
+
   else if ((matrix[iValue - 1][jValue - 1] == 'x') || (matrix[iValue][jValue - 1] == 'x') || (matrix[iValue - 1][jValue] == 'x') || (matrix[iValue - 1][jValue + 1] == 'x') || (matrix[iValue][jValue + 1] == 'x')) {
     putValuesOnBoard(iValue, jValue, player)
   }
@@ -77,7 +100,7 @@ var chechIfXwon = (iValue, jValue) => {
   if (iValue == 4) {
     printBoard(matrix);
     console.log("\nX WON!")
-    process.exit()
+    gameSatus = false;
   }
 }
 
@@ -88,27 +111,27 @@ var checkIfYwon = (iValue, jValue) => {
     case 04:
       printBoard(matrix);
       console.log("\nY WON!")
-      process.exit()
+      gameSatus = false;
 
     case 15:
       printBoard(matrix);
       console.log("\nY WON!")
-      process.exit()
+      gameSatus = false;
 
     case 26:
       printBoard(matrix);
       console.log("\nY WON!")
-      process.exit()
+      gameSatus = false;
 
     case 37:
       printBoard(matrix);
       console.log("\nY WON!")
-      process.exit()
+      gameSatus = false;
 
     case 48:
       printBoard(matrix);
       console.log("\nY WON!")
-      process.exit()
+      gameSatus = false;
 
     default:
       break;
@@ -142,12 +165,6 @@ var printBoard = (matrix) => {
     }
     process.stdout.write('\n');
   }
-  // for(k=0;k<5;k++){
-  //   for(l=0;l<9;l++){
-  //     process.stdout.write(matrix[k],[l])
-  //   }
-  //   process.stdout.write('\n')
-  // }
 }
 
 var matrix = [
@@ -159,4 +176,8 @@ var matrix = [
 
 ]
 
-start();
+
+while (gameSatus) {
+  start();
+}
+
